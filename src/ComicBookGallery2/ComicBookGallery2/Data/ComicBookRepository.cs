@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using ComicBookGallery2.Models;
 
 namespace ComicBookGallery2.Data
 {
@@ -59,6 +58,13 @@ namespace ComicBookGallery2.Data
                 Favorite = false
             }
         };
+
+        public ComicBook[] GetComicBooks()
+        {
+            return _comicBooks;
+        }
+
+
         public ComicBook GetComickBook(int id)
         {
             ComicBook comicBookToReturn = null;

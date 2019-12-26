@@ -12,22 +12,26 @@ namespace ComicBookGallery2.Controllers
     {
         private ComicBookRepository _comicBookRepository = null;
 
-        // Add constructor 
         public ComicBooksController()
         {
             _comicBookRepository = new ComicBookRepository();
         }
+         
+        //Add an action method
+        public ActionResult Index()
+        {
+            var comicBooks = _comicBookRepository.GetComicBooks();
+
+            return View(comicBooks);
+        }
         
-        // Writing ? after int will enable to accept a nullable type
         public ActionResult Detail(int? id)
         {
             if (id == null)
             {
                 return HttpNotFound();
             }
-            // When using a nullable type, need to use 
-            // either a value property   (id.Value)
-            // or an explicit cast ((Int)id)
+      
             var comicBook = _comicBookRepository.GetComickBook(id.Value);
             
             return View(comicBook);   
