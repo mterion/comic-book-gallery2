@@ -1,4 +1,5 @@
-﻿using ComicBookGallery2.Models;
+﻿using ComicBookGallery2.Data;
+using ComicBookGallery2.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,11 +10,27 @@ namespace ComicBookGallery2.Controllers
 {
     public class ComicBooksController : Controller
     {
-        public ActionResult Detail()
-        {
+        private ComicBookRepository _comicBookRepository = null;
 
-            // Pass our comic books instances to our view
-            return View();   
+        // Add constructor 
+        public ComicBooksController()
+        {
+            _comicBookRepository = new ComicBookRepository();
+        }
+        
+        // Writing ? after int will enable to accept a nullable type
+        public ActionResult Detail(int? id)
+        {
+            if (id == null)
+            {
+                return HttpNotFound();
+            }
+            // When using a nullable type, need to use 
+            // either a value property   (id.Value)
+            // or an explicit cast ((Int)id)
+            var comicBook = _comicBookRepository.GetComickBook(id.Value);
+            
+            return View(comicBook);   
         }
     }
 }
